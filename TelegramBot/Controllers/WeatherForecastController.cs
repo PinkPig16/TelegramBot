@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using TelegramParse;
 
-namespace TelegramBot.Controllers
+namespace TelegramParse.Controllers
 {
     [ApiController]
     [Route("[controller]")]

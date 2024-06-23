@@ -1,4 +1,4 @@
-namespace TelegramBot
+namespace TelegramParse
 {
     public class WeatherForecast
     {

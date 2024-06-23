@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace TelegramBot.Data
+namespace TelegramParse.Data
 {
     public class ApplicationDB : DbContext
     {
-        public ApplicationDB(DbContextOptions<ApplicationDB> options) : base(options) 
+        public ApplicationDB(DbContextOptions<ApplicationDB> options) : base(options)
         {
 
         }
