@@ -9,16 +9,16 @@ namespace TelegramParse.Controllers
 
     public class TelegramBotController : Controller
     {
-        private readonly  TelegramBotClient _client;
 
         public TelegramBotController(TelegramBot telegramBot)
         {
-            _client = telegramBot.GetBot().Result;
+            var _client = telegramBot.GetBot().Result;
         }
         
 
         [HttpPost]
-        public IActionResult update()
+        [Route("update")]
+        public IActionResult update([FromBody]object update)
         {
             return Ok();
         }

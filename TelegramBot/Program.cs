@@ -22,7 +22,7 @@ builder.Services.AddDbContext<ApplicationDB>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
+builder.Services.AddSingleton<TelegramBot>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
