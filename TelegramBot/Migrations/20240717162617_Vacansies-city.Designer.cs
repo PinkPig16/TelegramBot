@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TelegramParse.Data;
@@ -11,9 +12,11 @@ using TelegramParse.Data;
 namespace TelegramParse.Migrations
 {
     [DbContext(typeof(ApplicationDB))]
-    partial class ApplicationDBModelSnapshot : ModelSnapshot
+    [Migration("20240717162617_Vacansies-city")]
+    partial class Vacansiescity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,7 +66,7 @@ namespace TelegramParse.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("appUsers", (string)null);
+                    b.ToTable("appUsers");
                 });
 
             modelBuilder.Entity("TelegramParse.Entity.City", b =>
@@ -80,7 +83,7 @@ namespace TelegramParse.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("citys", (string)null);
+                    b.ToTable("citys");
                 });
 
             modelBuilder.Entity("TelegramParse.Entity.Vacancies", b =>
@@ -91,8 +94,8 @@ namespace TelegramParse.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<long>("AppUserId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("CityId")
                         .HasColumnType("integer");
@@ -100,32 +103,35 @@ namespace TelegramParse.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
-                    b.HasIndex("AppUserId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("vacancies", (string)null);
+                    b.HasIndex("UserId");
+
+                    b.ToTable("vacancies");
                 });
 
             modelBuilder.Entity("TelegramParse.Entity.Vacancies", b =>
                 {
-                    b.HasOne("TelegramParse.Entity.AppUser", "AppUser")
-                        .WithMany("vacancies")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("TelegramParse.Entity.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AppUser");
+                    b.HasOne("TelegramParse.Entity.AppUser", "User")
+                        .WithMany("vacancies")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("City");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TelegramParse.Entity.AppUser", b =>

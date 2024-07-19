@@ -22,6 +22,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
 builder.Services.Configure<TelegramConfigModel>(builder.Configuration.GetSection("TelegramBot"));
 builder.Services.AddScoped<ICommands,StartCommand>();
+builder.Services.AddScoped<ICommands, AddCommand>();
 builder.Services.AddScoped<CommandsRegistry>();
 builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddScoped<IMessage,MessageOperation>();

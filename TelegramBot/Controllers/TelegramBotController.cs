@@ -36,7 +36,8 @@ namespace TelegramParse.Controllers
             var upd = JsonConvert.DeserializeObject<Update>(update.ToString());
             if (upd != null)
             {
-                var command = _commandsRegistry.GetCommandHandler(upd.Message.Text);
+                var messageCommand = upd.Message.Text.Split(' ').First();
+                var command = _commandsRegistry.GetCommandHandler(messageCommand);
                 if (command == null)
                 {
                     _loggerError.Log("Command not found");

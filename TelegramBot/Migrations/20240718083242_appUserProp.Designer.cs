@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TelegramParse.Data;
@@ -11,9 +12,11 @@ using TelegramParse.Data;
 namespace TelegramParse.Migrations
 {
     [DbContext(typeof(ApplicationDB))]
-    partial class ApplicationDBModelSnapshot : ModelSnapshot
+    [Migration("20240718083242_appUserProp")]
+    partial class appUserProp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,7 +66,7 @@ namespace TelegramParse.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("appUsers", (string)null);
+                    b.ToTable("appUsers");
                 });
 
             modelBuilder.Entity("TelegramParse.Entity.City", b =>
@@ -80,7 +83,7 @@ namespace TelegramParse.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("citys", (string)null);
+                    b.ToTable("citys");
                 });
 
             modelBuilder.Entity("TelegramParse.Entity.Vacancies", b =>
@@ -106,7 +109,7 @@ namespace TelegramParse.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("vacancies", (string)null);
+                    b.ToTable("vacancies");
                 });
 
             modelBuilder.Entity("TelegramParse.Entity.Vacancies", b =>

@@ -24,14 +24,14 @@ namespace TelegramParse.Repository
             await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<AppUser> GetAllAsync()
+        public  IEnumerable<AppUser> GetAllAsync()
         {
-            throw new NotImplementedException();
+           throw new NotImplementedException();
         }
 
-        public Task<AppUser?> GetAsyncById(long id)
+        public async Task<AppUser?> GetAsyncById(long id)
         {
-            return _context.appUsers.FirstOrDefaultAsync(x => x.Id == id);
+           return await _context.appUsers.FindAsync(id);
         }
         public async Task UpdateAsync(AppUser user)
         {

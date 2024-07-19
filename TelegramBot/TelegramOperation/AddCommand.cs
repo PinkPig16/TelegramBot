@@ -1,39 +1,41 @@
-﻿using AutoMapper;
-using Telegram.Bot;
+﻿using System.Windows.Input;
+using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Telegram.Bot.Types;
 using TelegramParse.Entity;
 using TelegramParse.Interfaces;
 
 namespace TelegramParse.TelegramOperation
 {
-    public class StartCommand : ICommands
+    public class AddCommand : ICommands
     {
         private readonly IAppUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public StartCommand(IAppUserRepository userRepository, IMapper mapper) 
+        public string CommandName => "/add";
+
+        public AddCommand(IAppUserRepository userRepository,IMapper mapper)
         {
             _userRepository = userRepository;
             _mapper = mapper;
         }
-        public string CommandName => "/start";
-
         public string HandleCommand(Update update)
         {
             User? user = update.Message?.From;
-            var users =  _userRepository.GetAsyncById(user.Id);
-            if (FindUser(user.Id) == null)
+            String messageText = update.Message.Text;
+            var wrods = ParseMessage(messageText);
+            if (_userRepository.GetAsyncById(user.Id) != null)
             {
                 var appUser = _mapper.Map<AppUser>(user);
                 _userRepository.Add(appUser);
-                return "TEST";
             }
-            return "Скажите на какие позиции необходимо присылать оповещения";
-        }
 
-        public async  Task<AppUser?> FindUser(long id)
+            return "200";
+        }
+        public List<string> ParseMessage(string messageText)
         {
-            return await _userRepository.GetAsyncById(id);
+            return messageText.Split(' ').ToList();
+            
         }
     }
 }

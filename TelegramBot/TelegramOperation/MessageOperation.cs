@@ -7,6 +7,7 @@ namespace TelegramParse.TelegramOperation
     public class MessageOperation : IMessage        
     {
         private readonly TelegramBotClientService telegram;
+
         public MessageOperation(TelegramBotClientService bot)
         {
             telegram = bot;
