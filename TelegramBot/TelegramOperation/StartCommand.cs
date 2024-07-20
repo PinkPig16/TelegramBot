@@ -9,26 +9,22 @@ namespace TelegramParse.TelegramOperation
     public class StartCommand : ICommands
     {
         private readonly IAppUserRepository _userRepository;
-        private readonly IMapper _mapper;
+        private readonly IMessage _message;
 
-        public StartCommand(IAppUserRepository userRepository, IMapper mapper) 
+        public StartCommand(IAppUserRepository userRepository, IMapper mapper, IMessage message) 
         {
             _userRepository = userRepository;
-            _mapper = mapper;
+            _message = message;
+            
         }
         public string CommandName => "/start";
 
-        public string HandleCommand(Update update)
+        public void HandleCommand(Update update)
         {
             User? user = update.Message?.From;
-            var users =  _userRepository.GetAsyncById(user.Id);
-            if (FindUser(user.Id) == null)
-            {
-                var appUser = _mapper.Map<AppUser>(user);
-                _userRepository.Add(appUser);
-                return "TEST";
-            }
-            return "Скажите на какие позиции необходимо присылать оповещения";
+            
+            var messageString = "Для подписки на рассылку вакансий используйте /add. \n Например: /add junior .net киев   /add C# remote";
+            _message.Send(messageString, user.Id);
         }
 
         public async  Task<AppUser?> FindUser(long id)

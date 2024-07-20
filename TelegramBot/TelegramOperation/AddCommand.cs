@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Telegram.Bot.Types;
+using TelegramParse.Data.Enum;
 using TelegramParse.Entity;
 using TelegramParse.Interfaces;
 
@@ -19,22 +20,30 @@ namespace TelegramParse.TelegramOperation
             _userRepository = userRepository;
             _mapper = mapper;
         }
-        public string HandleCommand(Update update)
+        public void HandleCommand(Update update)
         {
             User? user = update.Message?.From;
             String messageText = update.Message.Text;
-            var wrods = ParseMessage(messageText);
+            var Words = ParseMessage(messageText);
             if (_userRepository.GetAsyncById(user.Id) != null)
             {
                 var appUser = _mapper.Map<AppUser>(user);
                 _userRepository.Add(appUser);
             }
-
-            return "200";
         }
         public List<string> ParseMessage(string messageText)
-        {
-            return messageText.Split(' ').ToList();
+        {   var vacancies = new Vacancies();
+            var words =  messageText.ToLower().Split(' ').ToList();
+            
+            if (ITPosition.)
+
+            if (words.Count == 2)
+            {
+                vacancies.Name = words[1];
+            } else if (words.Count == 3)
+            {
+                
+            }
             
         }
     }

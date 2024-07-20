@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using TelegramParse.Data.Enum;
 
 namespace TelegramParse.Entity
 {
@@ -12,5 +13,6 @@ namespace TelegramParse.Entity
         [ForeignKey(nameof(City))]
         public int CityId {  get; set; }
         public City? City { get; set; }
+        public ITPosition position { get; set; }
     }
 }

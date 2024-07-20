@@ -44,8 +44,7 @@ namespace TelegramParse.Controllers
                 }
                 else
                 {
-                    var outString = command.HandleCommand(upd);
-                    _message.Send(outString, upd.Message.From.Id);
+                    command.HandleCommand(upd);
                 }
             }
             return Ok();

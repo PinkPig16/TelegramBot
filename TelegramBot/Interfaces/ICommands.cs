@@ -5,6 +5,6 @@ namespace TelegramParse.Interfaces
     public interface ICommands
     {
         string CommandName { get; }
-        string HandleCommand(Update update);
+        void HandleCommand(Update update);
     }
 }
